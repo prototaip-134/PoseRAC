@@ -1,6 +1,7 @@
 pyyaml
 pytorch-lightning==1.9.2
 pytorch-metric-learning
+pillow==9.5.0
 pandas
 mediapipe
 opencv-python

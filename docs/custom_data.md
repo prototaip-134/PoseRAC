@@ -16,8 +16,10 @@ Each annotation CSV contains the following columns:
 
 - **Filename**: Name of the video file.
 - **L1, L2, ...**: Salient pose landmarks for the movements. Odd-numbered landmarks (`L1`, `L3`, ...) indicate the start, and even-numbered landmarks (`L2`, `L4`, ...) indicate the end of half a periodic movement. For `n` repetitions of an action, there will be `2n` salient poses.
+  
 ![image](https://github.com/prototaip-134/PoseRAC/assets/67076071/23f5b27f-94f5-462b-98fa-ba106f5c7b12)
 - **Count** *(test only)*: Number of repetitions in the video (for test annotations only).
+  
 ![image](https://github.com/prototaip-134/PoseRAC/assets/67076071/11377f39-8645-4b33-95e9-eacba7edaadb)
 
 ## Scripts

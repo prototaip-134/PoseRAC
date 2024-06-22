@@ -180,7 +180,7 @@ def main(args):
                     enc_layer=config['PoseRAC']['enc_layer'], learning_rate=config['PoseRAC']['learning_rate'],
                     seed=config['PoseRAC']['seed'], num_classes=num_classes, alpha=config['PoseRAC']['alpha'])
     # model.load_from_checkpoint(weight_path)
-    weight_path = 'best_weights_PoseRAC.pth'
+    weight_path = args.ckpt
     new_weights = torch.load(weight_path, map_location='cpu')
     model.load_state_dict(new_weights)
     model.eval()

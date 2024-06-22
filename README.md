@@ -119,7 +119,7 @@ python train.py --config ./RepCount_pose_config.yaml
 python inference_and_visualization.py --config ./RepCount_pose_config.yaml --ckpt ./best_weights_PoseRAC.pth
 ```
 
-You can also train from scratch to get a set of model weights for evaluation and inference.
+You can also train from scratch to get a set of model weights for evaluation and inference. Check [this](./docs/custom_data.md) for details on how the annotations are needed.
 
 ## Contact
 Ziyu Yao (yaozy@stu.pku.edu.cn)

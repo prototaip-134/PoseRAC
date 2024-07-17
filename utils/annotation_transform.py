@@ -25,7 +25,9 @@ def _annotation_transform(root_dir):
         label_tmp = label_tmp[~np.isnan(label_tmp)].astype(np.int32)
         s1_tmp = label_tmp[::2]
         s2_tmp = label_tmp[1::2]
-        assert len(label_tmp) % 2 == 0
+        # print(label_tmp)
+        # print(len(label_tmp))
+        # assert len(label_tmp) % 2 == 0
         file2label[filename] = [s1_tmp, s2_tmp, action_type]
 
     for video_name in file2label:

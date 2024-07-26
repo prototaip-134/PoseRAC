@@ -26,14 +26,14 @@ def main(args):
     print('start annotation transform')
     _annotation_transform(root_dir)
 
-    # print('start generate csv label')
-    # _generate_csv_label(root_dir, csv_label_path)
+    print('start generate csv label')
+    _generate_csv_label(root_dir, csv_label_path)
 
     # print('start generate for train')
     # _generate_for_train(root_dir)
 
-    # current_time = time.time()
-    # print('time: ' + str(current_time - old_time) + 's')
+    current_time = time.time()
+    print('time: ' + str(current_time - old_time) + 's')
 
 
 if __name__ == "__main__":

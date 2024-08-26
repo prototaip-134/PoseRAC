@@ -1,0 +1,35 @@
+alpha: 0.01
+dim: 20
+enc_layer: 6
+heads: 10
+learning_rate: 0.001
+num_classes: 1
+seed: 42
+train_x: !!python/object/apply:numpy.core.multiarray._reconstruct
+  args:
+  - &id001 !!python/name:numpy.ndarray ''
+  - !!python/tuple
+    - 0
+  - !!binary |
+    Yg==
+  state: !!python/tuple
+  - 1
+  - !!python/tuple
+    - 1874
+    - 20
+  - &id002 !!python/object/apply:numpy.dtype
+    args:
+    - f4
+    - false
+    - true
+    state: !!python/tuple
+    - 3
+    - <
+    - null
+    - null
+    - null
+    - -1
+    - -1
+    - 0
+  - false
+  -

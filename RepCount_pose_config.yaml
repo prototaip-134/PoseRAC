@@ -9,10 +9,12 @@ PoseRAC: {
   seed: 42,
   dim: 99,
   heads: 9,
-  enc_layer: 6,
+  enc_layer: 1,
   all_key_points: 99,
   learning_rate: 0.001,
-  alpha: 0.01
+  alpha: 0.01,
+  n_landmarks: 33,
+  n_dimensions: 3
 }
 Action_trigger: {
   enter_threshold: 0.78,

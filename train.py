@@ -12,36 +12,80 @@ import time
 import yaml
 torch.multiprocessing.set_sharing_strategy('file_system')
 
+def apply_random_flip(landmarks, flip_prob=0.5):
+    if np.random.rand() < flip_prob:
+        landmarks[:,:,0] = 1 - landmarks[:,:,0]  # Flip x-coordinates
+    return landmarks
 
-# Normalization to improve training robustness.
-def normalize_landmarks(all_landmarks):
+def apply_random_rotation(landmarks, max_angle=15):
+    # Convert max_angle to radians
+    max_angle_rad = np.deg2rad(max_angle)
+    
+    # Generate a random angle within the range of [-max_angle, max_angle]
+    angle = np.random.uniform(-max_angle_rad, max_angle_rad)
+    
+    # Rotation matrix for 2D rotation
+    rotation_matrix = np.array([
+        [np.cos(angle), -np.sin(angle)],
+        [np.sin(angle),  np.cos(angle)]
+    ])
+    
+    # Apply rotation to each landmark
+    # Note: Ensure landmarks are in the correct shape: (num_samples, num_landmarks, num_dimensions)
+    for i in range(len(landmarks)):
+        landmarks[i, :, :2] = landmarks[i, :, :2] @ rotation_matrix.T  # Apply rotation only to x and y coordinates
+
+    return landmarks
+
+def apply_jitter(landmarks, jitter_std=0.01):
+    jitter = np.random.normal(0, jitter_std, landmarks.shape)
+    landmarks += jitter
+    return landmarks
+
+
+# Original Normalization to improve training robustness.
+def normalize_landmarks(all_landmarks, n_landmarks, n_dimensions, training):
     x_max = np.expand_dims(np.max(all_landmarks[:,:,0], axis=1), 1)
     x_min = np.expand_dims(np.min(all_landmarks[:,:,0], axis=1), 1)
 
-    y_max = np.expand_dims(np.max(all_landmarks[:,:,1], axis=1), 1)
-    y_min = np.expand_dims(np.min(all_landmarks[:,:,1], axis=1), 1)
+    if n_dimensions == 2:
+        y_max = np.expand_dims(np.max(all_landmarks[:,:,1], axis=1), 1)
+        y_min = np.expand_dims(np.min(all_landmarks[:,:,1], axis=1), 1)
 
-    z_max = np.expand_dims(np.max(all_landmarks[:,:,2], axis=1), 1)
-    z_min = np.expand_dims(np.min(all_landmarks[:,:,2], axis=1), 1)
+    if n_dimensions == 3:
+        z_max = np.expand_dims(np.max(all_landmarks[:,:,2], axis=1), 1)
+        z_min = np.expand_dims(np.min(all_landmarks[:,:,2], axis=1), 1)
 
     all_landmarks[:,:,0] = (all_landmarks[:,:,0] - x_min) / (x_max - x_min)
-    all_landmarks[:,:,1] = (all_landmarks[:,:,1] - y_min) / (y_max - y_min)
-    all_landmarks[:,:,2] = (all_landmarks[:,:,2] - z_min) / (z_max - z_min)
 
-    all_landmarks = all_landmarks.reshape(len(all_landmarks), 99)
+    if n_dimensions == 2:
+        all_landmarks[:,:,1] = (all_landmarks[:,:,1] - y_min) / (y_max - y_min)
+
+    if n_dimensions == 3:
+        all_landmarks[:,:,2] = (all_landmarks[:,:,2] - z_min) / (z_max - z_min)
+
+    # if training:
+    #     # Apply flip augmentation
+    #     all_landmarks = apply_random_flip(all_landmarks)
+
+    #     # Apply rotation augmentation
+    #     all_landmarks = apply_random_rotation(all_landmarks)
+
+    #     # Apply rotation augmentation
+    #     all_landmarks = apply_jitter(all_landmarks)
+
+    all_landmarks = all_landmarks.reshape(len(all_landmarks), n_landmarks*n_dimensions)
     return all_landmarks
 
 
-# For each pose, we use 33 key points to represent it, and each key point has 3 dimensions.
+# Original PoseRAC: For each pose, we use 33 key points to represent it, and each key point has 3 dimensions.
 # Here we obtain the pose information (33*3=99) of each key frame, and set up the label (1 for salient pose I and 0 for salient pose II).
-def obtain_landmark_label(csv_path, all_landmarks, all_labels, label2index, num_classes):
+def obtain_landmark_label(csv_path, all_landmarks, all_labels, label2index, num_classes, n_landmarks, n_dimensions):
     file_separator=','
-    n_landmarks = 33
-    n_dimensions = 3
     with open(csv_path) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=file_separator)
         for row in csv_reader:
-            assert len(row) == n_landmarks * n_dimensions + 2, 'Wrong number of values: {}'.format(len(row))
+            assert len(row) == n_landmarks * n_dimensions + 2, f'Wrong number of values: Expect: {n_landmarks * n_dimensions + 2}, Actual: {len(row)}'
             landmarks = np.array(row[2:], np.float32).reshape([n_landmarks, n_dimensions])
             all_landmarks.append(landmarks)
             label = label2index[row[1]]
@@ -54,14 +98,14 @@ def obtain_landmark_label(csv_path, all_landmarks, all_labels, label2index, num_
     return all_landmarks, all_labels
 
 
-def csv2data(train_csv, action2index, num_classes):
+def csv2data(train_csv, action2index, num_classes, n_landmarks, n_dimensions, training=True):
     train_landmarks = []
     train_labels = []
-    train_landmarks, train_labels = obtain_landmark_label(train_csv, train_landmarks, train_labels, action2index, num_classes)
+    train_landmarks, train_labels = obtain_landmark_label(train_csv, train_landmarks, train_labels, action2index, num_classes, n_landmarks, n_dimensions)
 
     train_landmarks = np.array(train_landmarks)
     train_labels = np.array(train_labels)
-    train_landmarks = normalize_landmarks(train_landmarks)
+    train_landmarks = normalize_landmarks(train_landmarks, n_landmarks, n_dimensions, training)
 
     return train_landmarks, train_labels
 
@@ -78,6 +122,7 @@ def main(args):
     root_dir = config['dataset']['dataset_root_dir']
 
     train_csv = os.path.join(root_dir, 'annotation_pose', 'train.csv')
+    # valid_csv = os.path.join(root_dir, 'annotation_pose', 'valid.csv')
 
     label_pd = pd.read_csv(csv_label_path)
     index_label_dict = {}
@@ -89,9 +134,12 @@ def main(args):
         index_label_dict[label] = action
     num_classes = len(index_label_dict)
     action2index = {v: k for k, v in index_label_dict.items()}
+    n_landmarks = config['PoseRAC']['n_landmarks']
+    n_dimensions = config['PoseRAC']['n_dimensions']
 
-    train_landmarks, train_labels = csv2data(train_csv, action2index, num_classes)
-    valid_landmarks, valid_labels = csv2data(train_csv, action2index, num_classes)
+    train_landmarks, train_labels = csv2data(train_csv, action2index, num_classes, n_landmarks, n_dimensions, training=True)
+    valid_landmarks, valid_labels = csv2data(train_csv, action2index, num_classes, n_landmarks, n_dimensions, training=False)
+
 
     early_stop_callback = EarlyStopping(
         monitor='val_loss',

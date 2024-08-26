@@ -1,0 +1,33 @@
+dataset_name: CowBytes_pose
+train_split: ['train']
+test_split: ['test']
+dataset: {
+  dataset_root_dir: './CowBytes_pose',
+  csv_label_path: 'all_action.csv',
+}
+PoseRAC: {
+  seed: 42,
+  # TODO: Set this back to 99.
+  dim: 51,
+  # TODO: Set this back to 9.
+  heads: 17,
+  enc_layer: 1,
+  # TODO: Set this back to 99.
+  all_key_points: 51,
+  learning_rate: 0.001,
+  alpha: 0.01,
+  n_landmarks: 51,
+  n_dimensions: 1
+}
+Action_trigger: {
+  enter_threshold: 0.78,
+  exit_threshold: 0.4,
+  momentum: 0.4
+}
+trainer: {
+  max_epochs: 10000,
+  auto_lr_find: True,
+  accelerator: 'gpu',
+  devices: 1
+}
+save_ckpt_path: 'new_weights.pth'

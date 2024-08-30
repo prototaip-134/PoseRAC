@@ -3,13 +3,13 @@ train_split: ['train']
 test_split: ['test']
 dataset: {
   dataset_root_dir: './RepCount_pose',
-  csv_label_path: 'all_action.csv',
+  csv_label_path: 'all_action_original.csv',
 }
 PoseRAC: {
   seed: 42,
   dim: 99,
   heads: 9,
-  enc_layer: 1,
+  enc_layer: 6,
   all_key_points: 99,
   learning_rate: 0.001,
   alpha: 0.01,

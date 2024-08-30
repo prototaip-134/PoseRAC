@@ -5,3 +5,6 @@ pillow==9.5.0
 pandas
 mediapipe
 opencv-python
+numpy
+notebook
+ipywidgets

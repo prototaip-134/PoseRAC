@@ -10,8 +10,8 @@ PoseRAC: {
   # TODO: Set this back to 99.
   dim: 51,
   # TODO: Set this back to 9.
-  heads: 17,
-  enc_layer: 1,
+  heads: 9,
+  enc_layer: 6,
   # TODO: Set this back to 99.
   all_key_points: 51,
   learning_rate: 0.001,
@@ -25,7 +25,7 @@ Action_trigger: {
   momentum: 0.4
 }
 trainer: {
-  max_epochs: 10000,
+  max_epochs: 20,
   auto_lr_find: True,
   accelerator: 'gpu',
   devices: 1

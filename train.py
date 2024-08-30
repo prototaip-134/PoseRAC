@@ -48,7 +48,7 @@ def normalize_landmarks(all_landmarks, n_landmarks, n_dimensions, training):
     x_max = np.expand_dims(np.max(all_landmarks[:,:,0], axis=1), 1)
     x_min = np.expand_dims(np.min(all_landmarks[:,:,0], axis=1), 1)
 
-    if n_dimensions == 2:
+    if n_dimensions >= 2:
         y_max = np.expand_dims(np.max(all_landmarks[:,:,1], axis=1), 1)
         y_min = np.expand_dims(np.min(all_landmarks[:,:,1], axis=1), 1)
 
@@ -58,7 +58,7 @@ def normalize_landmarks(all_landmarks, n_landmarks, n_dimensions, training):
 
     all_landmarks[:,:,0] = (all_landmarks[:,:,0] - x_min) / (x_max - x_min)
 
-    if n_dimensions == 2:
+    if n_dimensions >= 2:
         all_landmarks[:,:,1] = (all_landmarks[:,:,1] - y_min) / (y_max - y_min)
 
     if n_dimensions == 3:

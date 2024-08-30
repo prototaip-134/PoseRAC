@@ -82,7 +82,11 @@ It is worth mentioning that in the *./RepCount_pose/annotation/* directory, ther
 ### Install
 Please refer to INSTALL.md for installation, or you can use:
 ```sh
+conda create -n poserac python=3.8 -y
+conda activate poserac
 pip install -r requirement.txt
+conda install ipykernel -y
+ipython kernel install --user --name=poserac
 ```
 
 ### Evaluation

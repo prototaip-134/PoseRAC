@@ -11,6 +11,7 @@ __pycache__/
 
 RepCount_pose/
 CowBytes_pose/
+BiteCountA_pose/
 .ipynb_checkpoints
 
 !images/*.jpg

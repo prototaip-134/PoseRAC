@@ -1,0 +1,27 @@
+Epoch 0: 100%|██████████| 194/194 [00:05<00:00, 34.41it/s, loss=0.693, v_num=41GOOD                                                                             
+Metric val_loss improved. New best score: 0.695
+Epoch 1: 100%|██████████| 194/194 [00:09<00:00, 21.02it/s, loss=0.688, v_num=41GOOD                                                                             
+Epoch 2: 100%|███████████| 194/194 [00:09<00:00, 21.48it/s, loss=0.69, v_num=41GOOD                                                                             
+Epoch 3: 100%|██████████| 194/194 [00:09<00:00, 21.43it/s, loss=0.688, v_num=41GOOD                                                                             
+Epoch 4: 100%|██████████| 194/194 [00:09<00:00, 20.96it/s, loss=0.689, v_num=41GOOD                                                                             
+Metric val_loss improved by 0.002 >= min_delta = 0.0. New best score: 0.693
+Epoch 5: 100%|██████████| 194/194 [00:09<00:00, 19.80it/s, loss=0.687, v_num=41GOOD                                                                             
+Epoch 6: 100%|██████████| 194/194 [00:09<00:00, 20.26it/s, loss=0.684, v_num=41GOOD                                                                             
+Epoch 7: 100%|██████████| 194/194 [00:09<00:00, 21.12it/s, loss=0.684, v_num=41GOOD                                                                             
+Epoch 8: 100%|██████████| 194/194 [00:09<00:00, 21.44it/s, loss=0.686, v_num=41GOOD                                                                             
+Epoch 9: 100%|███████████| 194/194 [00:09<00:00, 21.03it/s, loss=0.69, v_num=41GOOD                                                                             
+Epoch 10: 100%|█████████| 194/194 [00:09<00:00, 21.20it/s, loss=0.687, v_num=41GOOD                                                                             
+Epoch 11: 100%|█████████| 194/194 [00:09<00:00, 20.23it/s, loss=0.686, v_num=41GOOD                                                                             
+Epoch 12: 100%|█████████| 194/194 [00:09<00:00, 20.56it/s, loss=0.687, v_num=41GOOD                                                                             
+Epoch 13: 100%|█████████| 194/194 [00:09<00:00, 20.60it/s, loss=0.686, v_num=41GOOD                                                                             
+Epoch 14: 100%|██████████| 194/194 [00:09<00:00, 19.86it/s, loss=0.69, v_num=41GOOD                                                                             
+Epoch 15: 100%|█████████| 194/194 [00:09<00:00, 20.86it/s, loss=0.688, v_num=41GOOD                                                                             
+Metric val_loss improved by 0.000 >= min_delta = 0.0. New best score: 0.693
+Epoch 16: 100%|█████████| 194/194 [00:07<00:00, 25.94it/s, loss=0.688, v_num=41GOOD                                                                             
+Epoch 17: 100%|█████████| 194/194 [00:09<00:00, 21.26it/s, loss=0.686, v_num=41GOOD                                                                             
+Epoch 18: 100%|█████████| 194/194 [00:09<00:00, 21.31it/s, loss=0.687, v_num=41GOOD                                                                             
+Metric val_loss improved by 0.000 >= min_delta = 0.0. New best score: 0.693
+Epoch 19: 100%|█████████| 194/194 [00:09<00:00, 21.12it/s, loss=0.685, v_num=41GOOD                                                                             
+`Trainer.fit` stopped: `max_epochs=20` reached.
+
+MAE:0.9999999998957747,OBO:0.0

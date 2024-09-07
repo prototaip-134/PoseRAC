@@ -53,8 +53,8 @@ def normalize_landmarks(all_landmarks, n_landmarks, n_dimensions, training):
         y_min = np.expand_dims(np.min(all_landmarks[:,:,1], axis=1), 1)
 
     if n_dimensions >= 3:
-        z_max = 0 # np.expand_dims(np.max(all_landmarks[:,:,2], axis=1), 1)
-        z_min = 0 # np.expand_dims(np.min(all_landmarks[:,:,2], axis=1), 1)
+        z_max = np.expand_dims(np.max(all_landmarks[:,:,2], axis=1), 1)
+        z_min = np.expand_dims(np.min(all_landmarks[:,:,2], axis=1), 1)
 
     all_landmarks[:,:,0] = (all_landmarks[:,:,0] - x_min) / (x_max - x_min)
 
@@ -62,7 +62,7 @@ def normalize_landmarks(all_landmarks, n_landmarks, n_dimensions, training):
         all_landmarks[:,:,1] = (all_landmarks[:,:,1] - y_min) / (y_max - y_min)
 
     if n_dimensions >= 3:
-        all_landmarks[:,:,2] = 0 # (all_landmarks[:,:,2] - z_min) / (z_max - z_min)
+        all_landmarks[:,:,2] = (all_landmarks[:,:,2] - z_min) / (z_max - z_min)
 
     # if training:
     #     # Apply flip augmentation

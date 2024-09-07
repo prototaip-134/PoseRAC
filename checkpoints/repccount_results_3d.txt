@@ -1,0 +1,31 @@
+Epoch 0: loss=0.119
+Metric val_loss improved. New best score: 0.137
+Epoch 1: loss=0.08
+Epoch 2: loss=0.0641
+Epoch 3: loss=0.051
+Epoch 4: loss=0.0559
+Epoch 5: loss=0.0343
+Epoch 6: loss=0.0834
+Epoch 7: loss=0.0334
+Epoch 8: loss=0.0585
+Metric val_loss improved by 0.004 >= min_delta = 0.0. New best score: 0.134
+Epoch 9: loss=0.0608
+Metric val_loss improved by 0.004 >= min_delta = 0.0. New best score: 0.114
+Epoch 10: loss=0.0715
+Metric val_loss improved by 0.004 >= min_delta = 0.0. New best score: 0.112
+Epoch 11: loss=0.0451
+Metric val_loss improved by 0.004 >= min_delta = 0.0. New best score: 0.099
+Epoch 12: loss=0.0243
+Epoch 13: loss=0.0323
+Epoch 14: loss=0.0262
+Metric val_loss improved by 0.009 >= min_delta = 0.0. New best score: 0.094
+Epoch 15: loss=0.0252
+Metric val_loss improved by 0.009 >= min_delta = 0.0. New best score: 0.078
+Epoch 16: loss=0.0268
+Epoch 17: loss=0.0179
+Epoch 18: loss=0.0448
+Epoch 19: loss=0.0217
+Metric val_loss improved by 0.009 >= min_delta = 0.0. New best score: 0.078
+`Trainer.fit` stopped: `max_epochs=20` reached.
+
+MAE:0.2766857620606268,OBO:0.4934210526315789
